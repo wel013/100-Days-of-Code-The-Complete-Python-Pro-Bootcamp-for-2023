@@ -13,3 +13,5 @@ Password Manager Demo: https://youtu.be/nTkly4SljpU
 Flash Card Demo: https://youtu.be/lV2fHqUHEDk
 Quiz Game (Updated) Demo: https://youtu.be/kJ4fGYvE9cE
 Rain Alert Demo: https://youtu.be/IQ_m8oSFT9I
+Stock Alert Demo: https://youtu.be/4M8rNsAyVEU
+Habit Tracker Demo: https://youtu.be/c1xJ3u8ruBo

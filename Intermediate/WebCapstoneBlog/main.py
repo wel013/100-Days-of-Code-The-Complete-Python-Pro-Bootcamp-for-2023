@@ -1,42 +1,56 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+# import request
 import requests
 import datetime
+import csv
+# USE YOUR OWN npoint LINK! ADD AN IMAGE URL FOR YOUR POST. 👇
+posts = requests.get("https://api.npoint.io/c790b4d5cab58020d391").json()
+
 app = Flask(__name__)
 
 
 @app.route('/')
-def home():
-    url = "https://api.npoint.io/21eefacd756a601cb2f9"
-    data = requests.get(url).json()
-    author = "wenqian with npoint"
-    current_time = datetime.datetime.now()
-    time = f"{current_time.day} {current_time.month}, {current_time.year}"
-    return render_template('index.html', all_blogs=data, author=author, date=time)
+def get_all_posts():
+    return render_template("index.html", all_posts=posts)
 
 
-@app.route('/about')
+@app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template("about.html")
 
 
-@app.route('/contact')
+@app.route("/contact")
 def contact():
-    return render_template('contact.html')
+    return render_template("contact.html")
 
 
-@app.route('/post/<id>')
-def post(id):
-    url = "https://api.npoint.io/21eefacd756a601cb2f9"
-    data = requests.get(url).json()[int(id)-1]
-    body = ""
-    title = ""
-    subtitle = ""
-    # print(data)
-    body = data["body"]
-    title = data["title"]
-    subtitle = data["subtitle"]
-    return render_template("post.html", body=body, title=title, subtitle=subtitle)
+@app.route("/post/<int:index>")
+def show_post(index):
+    requested_post = None
+    for blog_post in posts:
+        if blog_post["id"] == index:
+            requested_post = blog_post
+    return render_template("post.html", post=requested_post)
+
+
+@app.route("/form-entry", methods=["POST"])
+def receive_data():
+    name = request.form['name']
+    phone = request.form['phone']
+    email = request.form['email']
+    message = request.form['message']
+    print(name, phone, email, message)
+    try:
+        with open("/home/liwq/Desktop/Python_Bootcamp/day_60_api_forms/contact.csv", "w", newline='') as f:
+            writer = csv.writer(f)
+            # Write header
+            # writer.writerow(["Name", "Phone", "Email", "Message"])
+            writer.writerow([name, phone, email, message])  # Write data
+        print("File created and data written successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    return render_template("contact.html", name=name)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

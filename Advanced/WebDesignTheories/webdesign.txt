@@ -1,0 +1,46 @@
+Intro to Web Design:  
+Ask yourself: If you would use this website, how much would you pay for the service/product on this website?
+
+Color Theory: 
+Moods of the color: 
+Red: love, energy, intensity 
+Yellow: joy, intellect and attention grabbing (logo/headline, but not something that is supposed to be looked at for a long time)
+Green: freshness, safety, growth (food?)
+Blue: stability, trust, serenity (financial companies, blue also perceived to be more trustworthy)
+Purple: royalty, wealth, femininity
+
+Color: what message am i trying to convey to the user
+
+Combining colors: 
+Right next to each other on color wheel (analogous color): good for body of webside but does not stand out
+Opposite on the color wheel (complementary color): good for something to pop out; do not try to style text and text background
+Triadic, square, etc (https://color.adobe.com/) (https://colorhunt.co/)
+
+
+Typography: 
+Serif (little feet at central beams, inspired by stone carving): more serious, authoritive, older, stable, respectable
+subfamilies like: old style, transitional, modern (the more difference the thickest and thinnest part has, the more modern it is)
+
+San-serifs: friendly, novel, straightforward, readable
+Humanist vs Grotesque: humanist is more legible
+
+2 fonts in one design: clean and tight
+similar moods and time era; but you can contrast serifness and weights 
+
+
+Manage attention with effective UI design
+1. Hierarchy: Color (contrast with background for high hierarchy); Size (bigger has higher hierarchy)
+2. Layout: Length (40-60 char per line); 
+3. Alignment: reduce the number of alignments
+4. White Space: think about the luxurious handbag placement vs a store that is all mushed tgt
+5. Audience: the design choice mentioned above should be made based on what would appeal to your audience and what are you trying to convey to them; (be flexible)
+
+UX Design
+1. Simplicity: 
+2. Consistency: functionality (eg. Nav bar)
+3. Reading Patterns: F pattern, Z pattern (maybe more sparse or video content) 
+4. All Platform Design: responsivesness on all devices
+5. Don't use your power for evil: dark patterns
+
+To Practice: https://www.dailyui.co/
+For inspiration: https://collectui.com/                      

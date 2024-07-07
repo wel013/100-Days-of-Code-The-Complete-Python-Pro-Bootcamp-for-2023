@@ -1,0 +1,61 @@
+Introduction to Version Control and Git
+
+Local Repo: 
+Initiating local repository: git init
+Working directory (current file), and in order to track, need to add to Staging Area (using git add <filename> and use git status to view staging area); git commit -m "<message>" to commit; commit message is important to track what has changed since the last commit. Commit message are usually in PRESENT TENSE; git log shows all the commit; each commit also has a hash to identify it. 
+To add multiple files to staging area: git add . (adds everything in the working dir); 
+remove from staging area (git rm --cached -r <filename>)
+
+git diff <filename>: check the difference between current file and the last saved point; 
+git checkout <filename>: revert back to the last version that was commited;
+
+
+Remote Repo: 
+repo hosted on somebody else's server
+1. Create a repo on github
+2. set up on desktop or command line push local onto remote 
+git remote add <name> <url> (by convention origin is the name)
+git push -u origin main (git push -u <repo name> <branch name>) (sync local and remote)
+main branch is usually for main progress and is sually sequential
+
+
+.gitignore: 
+for sensitive info (api key, etc) or files that has to do with local system or user preference (.DS_Store)
+
+.gitignore (case, spelling matters): can add individual files by writing their names on each line 
+# this is a comment in .gitignire
+* (wild card) *.txt (everything with this ending will be ignored)
+################################example beginning of the file#################################
+.DS_Store
+secrets.txt
+################################example end of the file#################################
+
+https://github.com/github/gitignore (check this link for pre-made templates)
+
+
+Git Clone: clone remote repo onto local machine to build on existing code and improve your own version
+git clone <url>
+one of the best way to learn programming is to read, understand and maybe modify soem existing code base (ofc when its allowed) 
+some beginner friendly opportunities (https://github.com/MunGell/awesome-for-beginners)
+
+
+Branching and Merging: 
+git branch <new branch name> 
+git branch (check what branches I have)
+git checkout <branch name> (to switch to this branch)
+git merge <name of branch> while on the original branch :q! to exit 
+
+
+Resource for more advanced: 
+https://learngitbranching.js.org/
+
+Forking and Pull Requests: 
+when you fork a repo, it exit under your account and you own the copied repo (diff from cloning)
+and then can be cloned to local. 
+
+If not contributor: pull request the forked, and the original owner can pull the changes and merge the copied with the original) 
+1: click on the fork on top right corner 
+2. make changes to the content
+3. Hit the button for pull request (leave some comments)
+4. In the original repo (owner), check pull request
+These can all be donw on the github website. 

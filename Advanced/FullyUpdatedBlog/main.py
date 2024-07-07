@@ -11,11 +11,12 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-
+import hashlib
+from urllib.parse import urlencode
 
 '''
-Make sure the required packages are installed: 
-Open the Terminal in PyCharm (bottom left). 
+Make sure the required packages are installed:
+Open the Terminal in PyCharm (bottom left).
 
 On Windows type:
 python -m pip install -r requirements.txt
@@ -33,7 +34,6 @@ Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# TODO: Configure Flask-Login
 
 
 # CREATE DATABASE
@@ -89,10 +89,12 @@ class Comment(db.Model):
     comment_author_id: Mapped[int] = mapped_column(
         Integer, ForeignKey('users.id'))
     comment_author = relationship("User", back_populates="comments")
+    parent_post = relationship("BlogPost", back_populates="comments")
+    post_id: Mapped[int] = mapped_column(Integer, ForeignKey("blog_posts.id"))
 
 
 with app.app_context():
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 
@@ -110,6 +112,15 @@ def admin_only(f):
             return abort(403)
     return wrapped
 
+
+gravatar = Gravatar(app,
+                    size=100,
+                    rating='g',
+                    default='retro',
+                    force_default=False,
+                    force_lower=False,
+                    use_ssl=False,
+                    base_url=None)
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
@@ -169,16 +180,24 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts, logged_in=current_user.is_authenticated)
 
 
-# TODO: Allow logged-in users to comment on posts
 @app.route("/post/<int:post_id>",  methods=["GET", "POST"])
 def show_post(post_id):
     comment_form = CommentForm()
     requested_post = db.get_or_404(BlogPost, post_id)
     if comment_form.validate_on_submit():
-        comment = comment_form.comment.data
-        new_comment = Comment(text=comment)
-        db.session.add(new_comment)
-        db.session.commit()
+        if current_user.is_authenticated:
+            comment = comment_form.comment.data
+            author_id = current_user.id
+            post_id = post_id
+            new_comment = Comment(
+                text=comment, comment_author_id=author_id, post_id=post_id)
+            db.session.add(new_comment)
+            db.session.commit()
+        else:
+            flash("You need to be logged in to comment on posts.")
+            return redirect(url_for('login'))
+    # comments = db.session.execute(db.select(Comment).where(
+        # Comment.post_id == post_id)).scalars()
     return render_template("post.html", post=requested_post, logged_in=current_user.is_authenticated, form=comment_form)
 
 

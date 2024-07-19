@@ -8,6 +8,6 @@ collection;
 
 Future improvements: 
 local_trans: 
-update english alphabet
+update english alphabet to include more puctuation, etc
 
 update morse code in other alphabets

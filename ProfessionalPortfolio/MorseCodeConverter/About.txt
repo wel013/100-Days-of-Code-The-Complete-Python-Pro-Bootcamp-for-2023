@@ -1,0 +1,13 @@
+This project is a python scripts for converting from and into morse code! 
+In the main.py is a script to translate both directions, but since an API was used, the rate is limited to 5
+translations per hour; 
+
+In the local_trans.py, the information is stored in a local dictionary so there is no rate limit;
+But the dictionary requries manual input so it might take time to update to the full alphabet/languages 
+collection; 
+
+Future improvements: 
+local_trans: 
+update english alphabet
+
+update morse code in other alphabets

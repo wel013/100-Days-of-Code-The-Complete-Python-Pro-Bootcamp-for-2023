@@ -1,0 +1,4 @@
+This is a command line game, just run the program and play with a friend!
+
+Future update: 
+Write a simple AI program to play with you!

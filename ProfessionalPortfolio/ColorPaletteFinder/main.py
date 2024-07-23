@@ -45,13 +45,11 @@ def extract_colors(image_path, num_colors, resize_dim=(150, 150), batch_size=100
 #     plt.show()
 
 
-# Example usage
-image_path = 'static/images/yonezu.jpg'
-num_colors = 5  # Number of dominant colors to extract
-resize_dim = (150, 150)  # Resize dimensions to speed up processing
+num_colors = int(input("How many color do you want in your palette? "))
+image_path = 'sample.jpg'
+resize_dim = (150, 150)  # reduce size
 colors = extract_colors(image_path, num_colors,
                         resize_dim, batch_size=100, n_init=10)
-# plot_colors(colors)
 
 
 @app.route('/')

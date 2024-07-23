@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="box">
+  <h1>Color Extractor</h1>
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .color-box {
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+                margin: 10px;
+            }
+        </style>
+        <title>Color Palette</title>
+    </head>
+    <body>
+     <img src="{{ image }}" alt="Original Image" style="max-width: 100%; height: auto;">
+    {%for color in colors%}
+        <div class="color-box" style="background-color:rgb({{color[0]}}, {{color[1]}}, {{color[2]}})"></div>
+    {%endfor%}
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

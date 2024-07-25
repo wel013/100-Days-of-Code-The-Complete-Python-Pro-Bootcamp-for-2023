@@ -1,9 +1,7 @@
 import requests
 from pprint import pprint
 
-# get_sheety_api = "https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/entrFlightDeals/prices"
-SHEETY_PRICES_ENDPOINT = "https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/cheapFlightFinder2024/prices"
-# SHEETY_PRICES_ENDPOINT = "https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/flightDeals/prices"
+SHEETY_PRICES_ENDPOINT = "<insert your url>"
 
 response = requests.get(url=SHEETY_PRICES_ENDPOINT)
 data = response.json()
@@ -29,7 +27,7 @@ class DataManager:
 
     def update_destination_codes(self, row):
         print("in updataing code")
-        put_url = f"https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/cheapFlightFinder2024/prices/{row['id']}"
+        put_url = f"<insert your url>"
         # for city in self.destination_data:
         new_data = {
             "price": {
@@ -43,7 +41,7 @@ class DataManager:
         print(response.text)
 
     def update_price(self, id, price):
-        put_url = f"https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/cheapFlightFinder2024/prices/{id}"
+        put_url = f"<insert your url>"
         # for city in self.destination_data:
         new_data = {
             "price": {
@@ -56,9 +54,4 @@ class DataManager:
         )
         print(response.text)
 
-    def get_customer_emails(self):
-        customers_endpoint = "https://api.sheety.co/618014cdc0e4d014e07e8904d965f0e4/entrFlightDeals/users"
-        response = requests.get(customers_endpoint)
-        data = response.json()
-        self.customer_data = data["users"]
-        return self.customer_data
+

@@ -33,7 +33,7 @@ destinations = {
     data["iataCode"]: {
         "id": data["id"],
         "city": data["city"],
-        "price": int(round(float(data["lowestPrice"]),0))
+        "price": int(round(float(data["lowestPrice"]), 0))
     } for data in sheet_data}
 
 
@@ -42,27 +42,27 @@ destinations = {
 
 # for destination_code in destinations:
 for i, destination_code in enumerate(destinations):
-    if i >= 2:
+    if i >= 9:
         break
     details = destinations[destination_code]
     flight = flight_search.check_flights("LON", "London",
                                          destination_code,
                                          details['city'],
-                                         details['price']
-                                        )
+                                         details['price'],
+                                         is_direct=False)
 
     if flight is None:
         print(
             f"There is not flight from London to {details['city']} that is lower than {details['price']}")
 
     else:
-        city_id = details['id']
-        data_manager.update_price(city_id, flight.price)
-        print(
-            f"New cheap flight from London to {details['city']} that is lower than {details['price']}")
-        # origin, origina_city, dest, dest_city, depart, return_date, price
-        notification_manager = NotificationManager("LON", "London",destination_code,details['city'],
-                                                   flight.out_date, flight.return_date, flight.price)
-        notification_manager.send_message()
-
-        
+        user_numbers = data_manager.get_customer_number()
+        for number in user_numbers:
+            city_id = details['id']
+            data_manager.update_price(city_id, flight.price)
+            print(
+                f"New cheap flight from London to {details['city']} that is lower than {details['price']}")
+            # origin, origina_city, dest, dest_city, depart, return_date, price
+            notification_manager = NotificationManager("LON", "London", destination_code, details['city'],
+                                                       flight.out_date, flight.return_date, flight.price, flight.stop_overs, number)
+            notification_manager.send_message()

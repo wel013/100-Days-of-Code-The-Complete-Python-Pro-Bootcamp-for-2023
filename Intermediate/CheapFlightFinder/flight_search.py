@@ -10,8 +10,8 @@ class FlightSearch:
 
     def __init__(self):
         self.city_codes = []
-        self._api_key = "<insert your api key>"
-        self._api_secret = "<insert your amadeus api secrets>"
+        self._api_key = "Dq9q7TKsPwtV9sIlI8rAA0pbDzPjEnbG"
+        self._api_secret = "EZYqmfOuvGOKpCvd"
         self._token = self._get_new_token()
 
     def _get_new_token(self):
@@ -44,7 +44,7 @@ class FlightSearch:
             print("DID NOT GET THE RIGHT RESPONSE")
         return result
 
-    def check_flights(self, origin_city_code, origina_city, destination_city_code, destination_city, max_price):
+    def check_flights(self, origin_city_code, origina_city, destination_city_code, destination_city, max_price, is_direct=True):
         flight_data = ""
         print(f"Check flights triggered for {destination_city_code}")
         url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
@@ -54,17 +54,28 @@ class FlightSearch:
         departure_start = tomorrow.strftime('%Y-%m-%d')
         departure_end = date_180_days_later.strftime('%Y-%m-%d')
         headers = {"Authorization": f"Bearer {self._token}"}
-
-        query = {
-            "originLocationCode": origin_city_code,
-            "destinationLocationCode": destination_city_code,
-            "departureDate": departure_start,
-            "returnDate": departure_end,
-            "adults": 1,
-            "nonStop": "true",
-            "max": 1,
-            "maxPrice": max_price
-        }
+        if is_direct:
+            query = {
+                "originLocationCode": origin_city_code,
+                "destinationLocationCode": destination_city_code,
+                "departureDate": departure_start,
+                "returnDate": departure_end,
+                "adults": 1,
+                "nonStop": "true",
+                "max": 1,
+                "maxPrice": max_price
+            }
+        else: 
+            query = {
+                "originLocationCode": origin_city_code,
+                "destinationLocationCode": destination_city_code,
+                "departureDate": departure_start,
+                "returnDate": departure_end,
+                "adults": 1,
+                "nonStop": "false",
+                "max": 1,
+                "maxPrice": max_price
+            }
         # print(query)
         response = requests.get(
             url=url,
@@ -77,6 +88,7 @@ class FlightSearch:
 
             # print(data["dictionaries"]["locations"])
             price = response.json()["data"][0]["price"]["grandTotal"]
+            stops = len(data["data"][0]["itineraries"][0]['segments'])
             flight_data = FlightData(
                 price=price,
                 origin_city=origina_city,
@@ -85,6 +97,7 @@ class FlightSearch:
                 destination_airport=data["data"][0]["itineraries"][0]["segments"][0]["arrival"]["iataCode"],
                 out_date=departure_start,
                 return_date=departure_end,
+                stop_overs=stops-1
             )
         else:
             flight_data = None

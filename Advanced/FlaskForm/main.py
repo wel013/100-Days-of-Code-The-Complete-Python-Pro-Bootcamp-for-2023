@@ -26,7 +26,7 @@ def home():
     return render_template('index.html')
 
 
-app.secret_key = "q1w2e3r4t5y6u7i8o9"
+app.secret_key = "/"
 
 
 class MyForm(FlaskForm):

@@ -10,8 +10,8 @@ class FlightSearch:
 
     def __init__(self):
         self.city_codes = []
-        self._api_key = "Dq9q7TKsPwtV9sIlI8rAA0pbDzPjEnbG"
-        self._api_secret = "EZYqmfOuvGOKpCvd"
+        self._api_key = "/"
+        self._api_secret = "/"
         self._token = self._get_new_token()
 
     def _get_new_token(self):

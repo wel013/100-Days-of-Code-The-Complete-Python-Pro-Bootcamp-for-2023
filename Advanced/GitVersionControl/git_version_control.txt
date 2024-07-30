@@ -5,6 +5,7 @@ Initiating local repository: git init
 Working directory (current file), and in order to track, need to add to Staging Area (using git add <filename> and use git status to view staging area); git commit -m "<message>" to commit; commit message is important to track what has changed since the last commit. Commit message are usually in PRESENT TENSE; git log shows all the commit; each commit also has a hash to identify it. 
 To add multiple files to staging area: git add . (adds everything in the working dir); 
 remove from staging area (git rm --cached -r <filename>)
+apparently git reset . can remove all the files
 
 git diff <filename>: check the difference between current file and the last saved point; 
 git checkout <filename>: revert back to the last version that was commited;

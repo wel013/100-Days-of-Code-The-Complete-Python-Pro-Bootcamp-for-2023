@@ -1,4 +1,6 @@
-from turtle import Screen, Turtle
+from turtle import Turtle
+
+STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
 
 
 class Snake():
@@ -13,23 +15,25 @@ class Snake():
         self.DOWN = 270
 
     def create_snake(self):
-        t0 = Turtle(shape="square")
+        # t0 = Turtle(shape="square")
 
-        t1 = Turtle(shape="square")
-        t2 = Turtle(shape="square")
-        t0.color("white")
-        t0.penup()
+        # t1 = Turtle(shape="square")
+        # t2 = Turtle(shape="square")
+        # t0.color("white")
+        # t0.penup()
 
-        t1.color("white")
-        t1.penup()
+        # t1.color("white")
+        # t1.penup()
 
-        t1.setposition(t0.xcor()-20, t0.ycor())
+        # t1.setposition(t0.xcor()-20, t0.ycor())
 
-        t2.color("white")
-        t2.penup()
+        # t2.color("white")
+        # t2.penup()
 
-        t2.setposition(t1.xcor()-20, t0.ycor())
-        self.segments = [t0, t1, t2]
+        # t2.setposition(t1.xcor()-20, t0.ycor())
+        # self.segments = [t0, t1, t2]
+        for pos in STARTING_POSITIONS:
+            self.add_segment(pos)
 
     def snake_move(self):
         for i in range(len(self.segments)-1, 0, -1):
@@ -56,3 +60,13 @@ class Snake():
         if self.segments[0].heading() != self.LEFT:
 
             self.segments[0].setheading(0)
+
+    def add_segment(self, position):
+        t = Turtle(shape="square")
+        t.color("white")
+        t.penup()
+        t.goto(position)
+        self.segments.append(t)
+
+    def grow(self):
+        self.add_segment(self.segments[-1].position())

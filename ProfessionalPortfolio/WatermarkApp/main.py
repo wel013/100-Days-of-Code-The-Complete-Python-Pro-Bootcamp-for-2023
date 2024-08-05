@@ -8,7 +8,7 @@ with Image.open("./images/Capture.png") as img:
 
 font_path = 'Roboto-Regular.ttf'
 font_size = 72
-myFont = ImageFont.load_default()
+myFont = ImageFont.truetype("arial.ttf", 36)
 img = Image.open('./images/Capture_resized.png')
 I1 = ImageDraw.Draw(img)
 I1.text((400, 300),  "Watermark!!", font=myFont, fill=(0, 0, 0))

@@ -1,0 +1,4 @@
+1. build a simple website that user can upload images for 
+2. resize the image or check the dim of the image to make sure it is big
+3. use PIL method to write on the image
+4. return the image

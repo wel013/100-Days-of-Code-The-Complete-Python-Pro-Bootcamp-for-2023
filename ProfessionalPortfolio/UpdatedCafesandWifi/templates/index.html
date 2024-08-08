@@ -1,3 +1,4 @@
+{% from "bootstrap5/form.html" import render_form %}
 {% extends 'base.html' %}
 {% block title %}Coffee and Wifi{% endblock %}
 
@@ -10,6 +11,9 @@
   <p>You've found the right place! Checkout my collection of cafes with data on power socket availability, wifi speed and coffee quality.</p>
   <a class="btn btn-warning btn-lg" href="{{ url_for('cafes') }}" role="button">Show Me!</a>
 </div>
-    </div>
+{{render_form(form, novalidate=True, button_map={"submit": "primary"})}}        
+   
+</div>
+
 
 {% endblock %}

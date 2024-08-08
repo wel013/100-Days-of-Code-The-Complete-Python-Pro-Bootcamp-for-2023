@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap5
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, RadioField, SelectField
@@ -9,18 +9,6 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text, ForeignKey
 
 
-'''
-Red underlines? Install the required packages first: 
-Open the Terminal in PyCharm (bottom left). 
-
-On Windows type:
-python -m pip install -r requirements.txt
-
-On MacOS type:
-pip3 install -r requirements.txt
-
-This will install the packages from requirements.txt for this project.
-'''
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -103,10 +91,33 @@ class CafeForm(FlaskForm):
     submit = SubmitField(label="submit")
 
 
-# all Flask routes below
-@app.route("/")
+class FilterEmojiForm(FlaskForm):
+    coffee = SelectField('Filter Projects by Tag', choices=[
+        ('☕', '☕'), ('☕☕', '☕☕'), ('☕☕☕', '☕☕☕'), ('☕☕☕☕', '☕☕☕☕'), ('☕☕☕☕☕', '☕☕☕☕☕')],
+        validators=[DataRequired()])
+    power = SelectField('Filter Projects by Tag', choices=[
+        ('⚡', '⚡'), ('⚡⚡', '⚡⚡'), ('⚡⚡⚡', '⚡⚡⚡'), ('⚡⚡⚡⚡', '⚡⚡⚡⚡'), ('⚡⚡⚡⚡⚡', '⚡⚡⚡⚡⚡')],
+        validators=[DataRequired()])
+    wifi = SelectField('Filter Projects by Tag', choices=[
+        ('📶', '📶'), ('📶📶', '📶📶'), ('📶📶📶', '📶📶📶'), ('📶📶📶📶', '📶📶📶📶'), ('📶📶📶📶📶', '📶📶📶📶📶')],
+        validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+
+\
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("index.html")
+    form = FilterEmojiForm()
+    if form.validate_on_submit() or request.method == "POST":
+        coffee = form.coffee.data
+        power = form.power.data
+        wifi = form.wifi.data
+        cafes = db.session.execute(
+            db.select(CafeandWifi).where(CafeandWifi.coffee == coffee,
+                                         CafeandWifi.power == power, CafeandWifi.wifi == wifi)
+        ).scalars().all()
+        return render_template('cafes.html', cafes=cafes)
+    return render_template("index.html", form=form)
 
 
 @app.route('/add', methods=['GET', 'POST'])
